@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ItemDetailsFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingTop="48dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="10dp"
+        android:theme="?attr/actionBarTheme"
+        app:menu="@menu/save_bar_menu"
+        app:navigationIcon="@drawable/ic_close"
+        app:title="Item Details"
+        app:titleTextAppearance="@style/Appbar.Title"
+        app:titleTextColor="@color/white"></com.google.android.material.appbar.MaterialToolbar>
+</RelativeLayout>

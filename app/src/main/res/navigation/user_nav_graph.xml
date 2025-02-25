@@ -201,5 +201,10 @@
         android:name="com.example.tapnbite.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/itemDetailsFragment"
+        android:name="com.example.tapnbite.ItemDetailsFragment"
+        android:label="fragment_item_details"
+        tools:layout="@layout/fragment_item_details" />
 
 </navigation>
