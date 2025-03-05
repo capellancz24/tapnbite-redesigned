@@ -46,6 +46,7 @@
     <string name="ob_text1">It’s a pleasure to meet you. We are excited that you’re here so let’s get started!</string>
     <string name="ob_text2">Order from Canteen 1 and 2 \n with easy, pick-up.</string>
     <string name="ob_text3">Easily find your type of food craving \n and you’ll get it in wide range.</string>
+    <string name="easily_top_up_your_tapnbite_pellets_with_a_seamless_direct_wallet_transfer_fast_and_hassle_free">Easily top up your TapNBite pellets with a seamless direct wallet transfer—fast and hassle-free!</string>
 
     <string-array name="account_type">
         <item>Customer</item>

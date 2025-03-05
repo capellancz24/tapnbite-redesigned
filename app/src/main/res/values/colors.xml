@@ -2,10 +2,12 @@
 <resources>
     <color name="md_theme_primary">#025CF8</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
+    <color name="wallet_bg">#F2F8FC</color>
     <color name="md_theme_primaryContainer">#003CAA</color>
     <color name="md_theme_onPrimaryContainer">#FFFFFF</color>
     <color name="md_theme_secondary">#445BA0</color>
     <color name="md_theme_onSecondary">#FFFFFF</color>
+    <color name="md_theme_textDark">#19213D</color>
     <color name="md_theme_secondaryContainer">#AABDFF</color>
     <color name="md_theme_onSecondaryContainer">#102C70</color>
     <color name="md_theme_tertiary">#865300</color>
