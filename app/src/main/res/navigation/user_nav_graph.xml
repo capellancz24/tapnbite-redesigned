@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/user_nav_graph"
-    app:startDestination="@id/registerFragment">
+    app:startDestination="@id/dashboardFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -209,6 +209,12 @@
         <action
             android:id="@+id/navigateToDashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/navigateToAddMenuFragment"
+            app:destination="@id/addMenuFragment" />
+        <action
+            android:id="@+id/navigateToAddMenuFragmentSave"
+            app:destination="@id/MenuInformationFragment" />
     </fragment>
     <fragment
         android:id="@+id/userManagementFragment"
@@ -247,11 +253,7 @@
         android:id="@+id/addMenuFragment"
         android:name="com.example.tapnbite.AddMenuFragment"
         android:label="fragment_add_menu"
-        tools:layout="@layout/fragment_add_menu" >
-        <action
-            android:id="@+id/action_addMenuFragment_to_addStoreFragment"
-            app:destination="@id/addStoreFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_add_menu" />
     <fragment
         android:id="@+id/addUserFragment"
         android:name="com.example.tapnbite.AddUserFragment"
@@ -266,11 +268,7 @@
         android:id="@+id/MenuInformationFragment"
         android:name="com.example.tapnbite.MenuInformationFragment"
         android:label="fragment_menu_information"
-        tools:layout="@layout/fragment_menu_information" >
-        <action
-            android:id="@+id/action_MenuInformationFragment_to_storeInformationFragment"
-            app:destination="@id/storeInformationFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_menu_information" />
     <fragment
         android:id="@+id/storeInformationFragment"
         android:name="com.example.tapnbite.StoreInformationFragment"

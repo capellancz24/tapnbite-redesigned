@@ -2,11 +2,33 @@ package com.example.tapnbite;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.tapnbite.Class.Food;
+import com.example.tapnbite.UserFragment.Adapter.MenuAdapter;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +45,12 @@ public class AddMenuFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private BottomAppBar bottomAppBar;
+    private FloatingActionButton addMenuFab;
+    private TextInputEditText foodName, foodPrice, foodDescription, foodImage, foodPreparationTime;
+    private AutoCompleteTextView foodCategory, store;
+    private ImageButton back;
+    private Button add;
 
     public AddMenuFragment() {
         // Required empty public constructor
@@ -59,6 +87,37 @@ public class AddMenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_menu, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_menu, container, false);
+
+        foodName = view.findViewById(R.id.inputFoodName);
+        foodPrice = view.findViewById(R.id.inputPrice);
+        foodDescription = view.findViewById(R.id.inputDescription);
+        foodImage = view.findViewById(R.id.inputImageUrl);
+        foodPreparationTime = view.findViewById(R.id.inputPrepTime);
+        foodCategory = view.findViewById(R.id.actCategory);
+        store = view.findViewById(R.id.inputStore);
+
+        add = view.findViewById(R.id.btnAdd);
+        back = view.findViewById(R.id.ibClose);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        return view;
     }
+
+    private void clearInputFields() {
+        foodName.setText("");
+        foodPrice.setText("");
+        foodDescription.setText("");
+        foodImage.setText("");
+        foodPreparationTime.setText("");
+        foodCategory.setText("");
+        store.setText("");
+    }
+
 }
