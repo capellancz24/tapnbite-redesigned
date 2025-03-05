@@ -1,13 +1,12 @@
 package com.example.tapnbite.dummy;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.widget.Button;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.example.tapnbite.Activities.MainActivity;
 import com.example.tapnbite.R;
 
 public class WalletReceipt extends AppCompatActivity {
@@ -15,12 +14,31 @@ public class WalletReceipt extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_wallet_receipt);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        TextView tvAmount = findViewById(R.id.tvAmount);
+        TextView transaction = findViewById(R.id.walletaction);
+        Button btnDone = findViewById(R.id.btnDone);
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("amount")) {
+            String amount = intent.getStringExtra("amount");
+            tvAmount.setText("₱ " + amount);
+        }
+
+        transaction.setOnClickListener(v -> {
+            Intent transactionIntent = new Intent(WalletReceipt.this, WalletTransaction.class);
+            startActivity(transactionIntent);
         });
+
+        btnDone.setOnClickListener(v -> {
+            Intent tointent = new Intent(WalletReceipt.this, MainActivity.class);
+            tointent.putExtra("navigateToProfile", true);
+            tointent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(tointent);
+            finish();
+        });
+
+
     }
 }

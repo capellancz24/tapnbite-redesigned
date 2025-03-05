@@ -1,121 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/wallet_bg"
-    android:padding="16dp">
+    android:background="@color/white">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/wallet_bg"
-        app:layout_constraintTop_toTopOf="parent"
-        app:contentInsetStartWithNavigation="0dp">
-
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@null"
-            android:contentDescription="Back button"
-            android:src="@drawable/ic_arrow_left"
-            app:tint="@color/md_theme_primary" />
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:text="Pellets Top Up"
-            android:textColor="@color/md_theme_textDark"
-            android:textSize="20sp"
-            android:fontFamily="@font/inter_bold" />
-    </androidx.appcompat.widget.Toolbar>
-
-    <EditText
-        android:id="@+id/etAmount"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="70dp"
-        android:gravity="center"
-        android:hint="Enter amount"
-        android:inputType="numberDecimal"
-        android:maxLines="1"
-        android:padding="16dp"
-        android:background="@drawable/wallet_edit_text"
-        android:textColor="@color/md_theme_textDark"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        android:layout_marginTop="24dp"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/keypadCard"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="10dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Back"
+                    android:src="@drawable/ic_arrow_left"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:tint="@color/md_theme_primary" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Top Up"
+                    android:textColor="@color/md_theme_primary"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:elevation="8dp"
-        android:background="@color/white"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingHorizontal="24dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="32dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardBalanceInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/tvCurrentBalance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Current Balance"
+                        android:textColor="@color/md_theme_secondary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvBalanceAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="₱ 0.00"
+                        android:textColor="@color/md_theme_textDark"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tvTopUpAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top-up Amount"
+                android:textColor="@color/md_theme_textDark"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/wallet_edit_text"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="0.00"
+                android:inputType="none"
+                android:maxLines="1"
+                android:padding="20dp"
+                android:textColor="@color/md_theme_textDark"
+                android:textColorHint="@color/md_theme_secondary"
+                android:textSize="34sp"
+                android:textStyle="bold" />
 
             <GridLayout
-                android:id="@+id/keypadGrid"
+                android:id="@+id/keypad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:columnCount="3"
-                android:rowCount="4"
-                android:paddingBottom="12dp">
+                android:padding="8dp">
 
-                <TextView android:id="@+id/btn1" style="@style/KeypadButton" android:text="1"/>
-                <TextView android:id="@+id/btn2" style="@style/KeypadButton" android:text="2"/>
-                <TextView android:id="@+id/btn3" style="@style/KeypadButton" android:text="3"/>
-                <TextView android:id="@+id/btn4" style="@style/KeypadButton" android:text="4"/>
-                <TextView android:id="@+id/btn5" style="@style/KeypadButton" android:text="5"/>
-                <TextView android:id="@+id/btn6" style="@style/KeypadButton" android:text="6"/>
-                <TextView android:id="@+id/btn7" style="@style/KeypadButton" android:text="7"/>
-                <TextView android:id="@+id/btn8" style="@style/KeypadButton" android:text="8"/>
-                <TextView android:id="@+id/btn9" style="@style/KeypadButton" android:text="9"/>
-                <TextView android:id="@+id/btnDot" style="@style/KeypadButton" android:text="."/>
-                <TextView android:id="@+id/btn0" style="@style/KeypadButton" android:text="0"/>
-
-                <ImageView
-                    android:id="@+id/btnBackspace"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
-                    android:padding="12dp"
-                    android:src="@drawable/ic_backspace"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"/>
+                <Button android:id="@+id/btn1" style="@style/KeypadButton" android:text="1" />
+                <Button android:id="@+id/btn2" style="@style/KeypadButton" android:text="2" />
+                <Button android:id="@+id/btn3" style="@style/KeypadButton" android:text="3" />
+                <Button android:id="@+id/btn4" style="@style/KeypadButton" android:text="4" />
+                <Button android:id="@+id/btn5" style="@style/KeypadButton" android:text="5" />
+                <Button android:id="@+id/btn6" style="@style/KeypadButton" android:text="6" />
+                <Button android:id="@+id/btn7" style="@style/KeypadButton" android:text="7" />
+                <Button android:id="@+id/btn8" style="@style/KeypadButton" android:text="8" />
+                <Button android:id="@+id/btn9" style="@style/KeypadButton" android:text="9" />
+                <Button android:id="@+id/btnDot" style="@style/KeypadButton" android:text="." />
+                <Button android:id="@+id/btn0" style="@style/KeypadButton" android:text="0" />
+                <Button android:id="@+id/btnBackspace" style="@style/KeypadButton" android:text="⌫" />
             </GridLayout>
-
-            <Button
-                android:id="@+id/btnSend"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/wallet_button"
-                android:paddingVertical="16dp"
-                android:text="Send"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSend"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="Continue"
+        android:textAllCaps="false"
+        android:paddingVertical="16dp"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/md_theme_primary" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

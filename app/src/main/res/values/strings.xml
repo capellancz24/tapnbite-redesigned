@@ -53,5 +53,11 @@
         <item>Seller</item>
         <item>Admin</item>
     </string-array>
-
+    <string name="back_button">Back</string>
+    <string name="top_up_title">Top Up</string>
+    <string name="current_balance">Current Balance</string>
+    <string name="default_balance">₱ 0.00</string>
+    <string name="top_up_amount">Top-up Amount</string>
+    <string name="amount_hint">0.00</string>
+    <string name="continue_button">Continue</string>
 </resources>
