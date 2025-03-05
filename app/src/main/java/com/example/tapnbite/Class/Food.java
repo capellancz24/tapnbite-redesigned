@@ -1,26 +1,26 @@
 package com.example.tapnbite.Class;
 
 public class Food {
-    private String foodId; // Unique identifier for the food item
+    private String foodId;
     private String name;
     private String description;
-    private String category;
-    private String canteen;
-    private String store;
-    private String prepTime;
     private int price;
+    private int prepTime;
+    private String categoryId;
     private String imageUrl;
+    private String canteenStaffId;
+    private String availability;
 
-    public Food(String foodId, String name, String description, String category, String canteen, String store, String prepTime, int price, String imageUrl) {
+    public Food(String foodId, String name, String description, int price, int prepTime, String categoryId, String imageUrl, String canteenStaffId, String availability) {
         this.foodId = foodId;
         this.name = name;
         this.description = description;
-        this.category = category;
-        this.canteen = canteen;
-        this.store = store;
-        this.prepTime = prepTime;
         this.price = price;
+        this.prepTime = prepTime;
+        this.categoryId = categoryId;
         this.imageUrl = imageUrl;
+        this.canteenStaffId = canteenStaffId;
+        this.availability = availability;
     }
 
     public String getFoodId() {
@@ -35,27 +35,27 @@ public class Food {
         return description;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public String getCanteen() {
-        return canteen;
-    }
-
-    public String getStore() {
-        return store;
-    }
-
-    public String getPrepTime() {
-        return prepTime;
-    }
-
     public int getPrice() {
         return price;
     }
 
+    public int getPrepTime() {
+        return prepTime;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getCanteenStaffId() {
+        return canteenStaffId;
+    }
+
+    public String getAvailability() {
+        return availability;
     }
 }

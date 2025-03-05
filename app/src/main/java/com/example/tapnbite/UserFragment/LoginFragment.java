@@ -38,7 +38,7 @@ public class LoginFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final String LOGIN_URL = "http://192.168.18.6/tapnbite/users/readUsers.php";
+    private static final String LOGIN_URL = "http://192.168.18.6/tapnbite/userRead.php";
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -104,6 +104,7 @@ public class LoginFragment extends Fragment {
                 if (!username.isEmpty() && !pass.isEmpty()) {
                     loginUser(username, pass);
                 } else {
+                    validateEmailAndPassword();
                     Toast.makeText(getContext(), "Please enter username and password", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -134,9 +135,7 @@ public class LoginFragment extends Fragment {
                                 if (userType.equals("customer")) {
                                     Navigation.findNavController(view).navigate(R.id.navigateToHomeFragment);
                                 } else if (userType.equals("canteen staff")) {
-                                    // Navigate to canteen staff fragment
-                                } else if (userType.equals("admin")) {
-                                    Navigation.findNavController(view).navigate(R.id.dashboardFragment);
+                                    Toast.makeText(getContext(), "Canteen Staff", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 Toast.makeText(getContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
