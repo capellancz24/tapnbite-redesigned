@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -14,11 +15,26 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.tapnbite.Class.Food;
 import com.example.tapnbite.R;
+import com.example.tapnbite.UserFragment.Adapter.ProductsAdapter;
 import com.example.tapnbite.ViewModel.SharedViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.search.SearchBar;
 import com.google.android.material.search.SearchView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +59,10 @@ public class HomeFragment extends Fragment {
     private MaterialToolbar materialToolbar;
     private View view;
     private SearchView searchView;
-    private RecyclerView popularFoods;
+    private RecyclerView rvProducts;
+    private ProductsAdapter productsAdapter;
+    private List<Food> productList;
+    private RequestQueue requestQueue;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -86,7 +105,6 @@ public class HomeFragment extends Fragment {
         canteenName = view.findViewById(R.id.tvCanteenNum);
         searchView = view.findViewById(R.id.svItems);
         popularFoodSeeAll = view.findViewById(R.id.tvSeeAll1);
-        searchView = view.findViewById(R.id.svItems);
 
         searchBar = view.findViewById(R.id.search_bar);
         searchBar.inflateMenu(R.menu.filter_menu);
@@ -128,11 +146,60 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //CHAD ILAGAY MO DITO CODE MO SA BABA
-        popularFood = view.findViewById(R.id.rvPopularFood); //recycler view
+
+        rvProducts = view.findViewById(R.id.rvFoodProducts);
+        rvProducts.setHasFixedSize(true);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        rvProducts.setLayoutManager(gridLayoutManager);
+
+        productList = new ArrayList<>();
+        productsAdapter = new ProductsAdapter(getContext(), productList);
+        rvProducts.setAdapter(productsAdapter);
+
+        requestQueue = Volley.newRequestQueue(getContext());
+        fetchProducts();
 
 
 
         return view;
+    }
+
+    private void fetchProducts() {
+        String url = "https://mocki.io/v1/1830be16-229f-42ca-8e5e-44684015db0a"; // Replace with your server URL
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject product = response.getJSONObject(i);
+                                String foodId = product.getString("id");
+                                String name = product.getString("item_name");
+                                String description = product.getString("item_desc");
+                                int price = product.getInt("item_price");
+                                int prepTime = product.getInt("item_preptime");
+                                String categoryId = product.getString("category_id");
+                                String imageUrl = product.getString("item_image");
+                                String canteenStaffId = product.getString("canteenstaff_id");
+                                String availability = product.getString("availability");
+
+                                productList.add(new Food(foodId, name, description, price, prepTime, categoryId, imageUrl, canteenStaffId, availability));
+                            }
+                            productsAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+
+        requestQueue.add(jsonArrayRequest);
     }
 }

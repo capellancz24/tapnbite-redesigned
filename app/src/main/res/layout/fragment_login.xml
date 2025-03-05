@@ -72,7 +72,7 @@
                     app:startIconDrawable="@drawable/ic_person_fill">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputNUEmail"
+                        android:id="@+id/inputEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_medium"

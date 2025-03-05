@@ -47,9 +47,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/inter_medium"
-                android:textColor="@color/md_theme_outline_mediumContrast"
                 android:text="Choose one of the options to access this app."
                 android:textAlignment="center"
+                android:textColor="@color/md_theme_outline_mediumContrast"
                 android:textSize="@dimen/m3_sys_shape_corner_value_large" />
 
             <com.google.android.material.button.MaterialButtonToggleGroup
@@ -81,19 +81,218 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vpUser"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtLayoutFirstName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="5dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxStrokeColor="@color/md_theme_primary"
+                        app:hintAnimationEnabled="true"
+                        app:hintEnabled="true"
+                        app:hintTextColor="#025CF8">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputFirstName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:hint="First Name"
+                            android:inputType="textPersonName"
+                            android:textAppearance="@font/inter_medium"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtLayoutLastName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginStart="5dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxStrokeColor="@color/md_theme_primary"
+                        app:hintAnimationEnabled="true"
+                        app:hintEnabled="true"
+                        app:hintTextColor="#025CF8">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputLastName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:hint="Last Name"
+                            android:inputType="textPersonName"
+                            android:textAppearance="@font/inter_medium"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtLayoutEmail"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="@color/md_theme_primary"
+                    app:hintAnimationEnabled="true"
+                    app:hintEnabled="true"
+                    app:hintTextColor="#025CF8"
+                    app:startIconDrawable="@drawable/ic_mail">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_medium"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress"
+                        android:textAppearance="@font/inter_medium"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtLayoutNUID"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="@color/md_theme_primary"
+                    app:hintAnimationEnabled="true"
+                    app:hintEnabled="true"
+                    app:hintTextColor="#025CF8"
+                    app:startIconDrawable="@drawable/ic_idcard">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputNUID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_medium"
+                        android:hint="School ID"
+                        android:inputType="text|number"
+                        android:textAppearance="@font/inter_medium"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtLayoutCanteen"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:visibility="visible"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="@color/md_theme_primary"
+                    app:hintAnimationEnabled="true"
+                    app:hintEnabled="true"
+                    app:hintTextColor="#025CF8"
+                    app:startIconDrawable="@drawable/ic_store_fill">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/inputCanteenNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_medium"
+                        android:hint="Canteen Location"
+                        android:inputType="text"
+                        android:textAppearance="@font/inter_medium"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtLayoutStoreName"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:visibility="gone"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="@color/md_theme_primary"
+                    app:hintAnimationEnabled="true"
+                    app:hintEnabled="true"
+                    app:hintTextColor="#025CF8"
+                    app:startIconDrawable="@drawable/ic_store_fill">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputStoreName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_medium"
+                        android:hint="Store Name"
+                        android:inputType="text"
+                        android:textAppearance="@font/inter_medium"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtLayoutPassword"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="@color/md_theme_primary"
+                    app:endIconMode="none"
+                    app:hintAnimationEnabled="true"
+                    app:hintEnabled="true"
+                    app:hintTextColor="#025CF8"
+                    app:startIconDrawable="@drawable/ic_lock">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_medium"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtLayoutConfirmPassword"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="@color/md_theme_primary"
+                    app:cursorColor="@color/md_theme_primary"
+                    app:endIconMode="none"
+                    app:hintAnimationEnabled="true"
+                    app:hintEnabled="true"
+                    app:hintTextColor="#025CF8"
+                    app:startIconDrawable="@drawable/ic_lock">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_medium"
+                        android:hint="Confirm Password"
+                        android:inputType="textPassword"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <CheckBox
@@ -117,10 +316,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
+                android:enabled="false"
                 android:fontFamily="@font/inter_semibold"
                 android:padding="12sp"
                 android:paddingTop="4dp"
-                android:enabled="false"
                 android:text="Sign Up"
                 android:textSize="16sp" />
 
@@ -147,9 +346,9 @@
                     android:layout_height="wrap_content"
                     android:background="#0000"
                     android:fontFamily="@font/inter_bold"
-                    android:text="LOGIN"
-                    android:paddingTop="1dp"
                     android:gravity="top"
+                    android:paddingTop="1dp"
+                    android:text="LOGIN"
                     android:textColor="@color/md_theme_primary"
                     android:textSize="16sp" />
             </LinearLayout>

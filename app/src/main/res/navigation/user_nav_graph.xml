@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/user_nav_graph"
-    app:startDestination="@id/registerFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -151,7 +151,8 @@
             app:enterAnim="@android:anim/fade_in" />
         <action
             android:id="@+id/navigateToHomeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
@@ -177,68 +178,15 @@
             app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="com.example.tapnbite.AdminFragment.DashboardFragment"
-        android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
-        <action
-            android:id="@+id/navigateToMenuManagementFragment"
-            app:destination="@id/menuManagementFragment" />
-        <action
-            android:id="@+id/navigateToUserManagementFragment"
-            app:destination="@id/userManagementFragment" />
-        <action
-            android:id="@+id/navigateToStoreManagementFragment"
-            app:destination="@id/storeManagementFragment" />
-        <action
-            android:id="@+id/navigateToSettingsFragment"
-            app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/navigateToTransactionManagementFragment"
-            app:destination="@id/transactionsManagementFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/menuManagementFragment"
         android:name="com.example.tapnbite.MenuManagementFragment"
         android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" >
-        <action
-            android:id="@+id/navigateToDashboardFragment"
-            app:destination="@id/dashboardFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/userManagementFragment"
-        android:name="com.example.tapnbite.UserManagementFragment"
-        android:label="fragment_user"
-        tools:layout="@layout/fragment_user" >
-        <action
-            android:id="@+id/navigateToDashboardFragment"
-            app:destination="@id/dashboardFragment" />
-        <action
-            android:id="@+id/navigateToUserInformationFragment"
-            app:destination="@id/UserInformationFragment" />
-        <action
-            android:id="@+id/navigateToAddUserFragment"
-            app:destination="@id/addUserFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/storeManagementFragment"
-        android:name="com.example.tapnbite.StoreManagementFragment"
-        android:label="fragment_store_management"
-        tools:layout="@layout/fragment_store_management" >
-        <action
-            android:id="@+id/navigateToDashboardFragment"
-            app:destination="@id/dashboardFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_menu" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.tapnbite.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" >
-        <action
-            android:id="@+id/navigateToDashboardFragment"
-            app:destination="@id/dashboardFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/addMenuFragment"
         android:name="com.example.tapnbite.AddMenuFragment"
@@ -248,16 +196,6 @@
             android:id="@+id/action_addMenuFragment_to_addStoreFragment"
             app:destination="@id/addStoreFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/addUserFragment"
-        android:name="com.example.tapnbite.AddUserFragment"
-        android:label="fragment_add_user"
-        tools:layout="@layout/fragment_add_user" />
-    <fragment
-        android:id="@+id/UserInformationFragment"
-        android:name="com.example.tapnbite.UserInformationFragment"
-        android:label="fragment_user_information"
-        tools:layout="@layout/fragment_user_information" />
     <fragment
         android:id="@+id/MenuInformationFragment"
         android:name="com.example.tapnbite.MenuInformationFragment"
@@ -295,14 +233,5 @@
         android:name="com.example.tapnbite.AddStoreFragment"
         android:label="fragment_add_store"
         tools:layout="@layout/fragment_add_store" />
-    <fragment
-        android:id="@+id/transactionsManagementFragment"
-        android:name="com.example.tapnbite.TransactionsManagementFragment"
-        android:label="fragment_transactions_management"
-        tools:layout="@layout/fragment_transactions_management" >
-        <action
-            android:id="@+id/navigateToDashboardFragment"
-            app:destination="@id/dashboardFragment" />
-    </fragment>
 
 </navigation>
