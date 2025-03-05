@@ -38,7 +38,7 @@
             android:textSize="21sp" />
 
         <Button
-            android:id="@+id/btnSave"
+            android:id="@+id/btnAdd"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,6 +70,7 @@
                 app:hintTextColor="#025CF8">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputFoodName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
@@ -80,7 +81,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -89,14 +90,15 @@
                 app:endIconMode="clear_text"
                 app:hintTextColor="#025CF8">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_medium"
+                <AutoCompleteTextView
+                    android:id="@+id/actCategory"
                     android:hint="Category"
-                    android:inputType="textPersonName"
-                    android:textAppearance="@font/inter_medium"
-                    android:textSize="15sp" />
+                    android:fontFamily="@font/inter_medium"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </AutoCompleteTextView>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -110,6 +112,7 @@
                 app:hintTextColor="#025CF8">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
@@ -130,6 +133,7 @@
                 app:hintTextColor="#025CF8">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputPrepTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
@@ -150,11 +154,32 @@
                 app:hintTextColor="#025CF8">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputCustomerID"
+                    android:id="@+id/inputStore"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
                     android:hint="Store"
+                    android:inputType="textPersonName"
+                    android:textAppearance="@font/inter_medium"
+                    android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                app:boxStrokeColor="@color/md_theme_primary"
+                app:endIconMode="clear_text"
+                app:hintTextColor="#025CF8">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="top"
+                    android:hint="Description"
                     android:inputType="textPersonName"
                     android:textAppearance="@font/inter_medium"
                     android:textSize="15sp" />
@@ -171,8 +196,9 @@
                 app:hintTextColor="#025CF8">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputImageUrl"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="200dp"
                     android:fontFamily="@font/inter_medium"
                     android:gravity="top"
                     android:hint="Image Url"
@@ -181,26 +207,6 @@
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:paddingBottom="40dp"
-                app:boxStrokeColor="@color/md_theme_primary"
-                app:endIconMode="clear_text"
-                app:hintTextColor="#025CF8">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:fontFamily="@font/inter_medium"
-                    android:gravity="top"
-                    android:hint="Description"
-                    android:inputType="textPersonName"
-                    android:textAppearance="@font/inter_medium"
-                    android:textSize="15sp" />
-            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </ScrollView>
 
