@@ -6,19 +6,23 @@ public class Food {
     private String description;
     private int price;
     private int prepTime;
-    private String categoryId;
+    private String store;
     private String imageUrl;
+    private String canteenNo;
+
+    private String categoryId;
+
     private String canteenStaffId;
     private String availability;
 
-    public Food(String foodId, String name, String description, int price, int prepTime, String categoryId, String imageUrl, String canteenStaffId, String availability) {
+    public Food(String foodId, String name, String description, int price, int prepTime, String imageUrl, String categoryId, String canteenStaffId, String availability) {
         this.foodId = foodId;
         this.name = name;
         this.description = description;
         this.price = price;
         this.prepTime = prepTime;
-        this.categoryId = categoryId;
         this.imageUrl = imageUrl;
+        this.categoryId = categoryId;
         this.canteenStaffId = canteenStaffId;
         this.availability = availability;
     }
@@ -43,19 +47,27 @@ public class Food {
         return prepTime;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getStore() {
+        return store;
     }
 
     public String getImageUrl() {
         return imageUrl;
     }
 
-    public String getCanteenStaffId() {
-        return canteenStaffId;
+    public String getCanteeNo() {
+        return canteenNo;
     }
 
     public String getAvailability() {
         return availability;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public String getCanteenStaffId() {
+        return canteenStaffId;
     }
 }

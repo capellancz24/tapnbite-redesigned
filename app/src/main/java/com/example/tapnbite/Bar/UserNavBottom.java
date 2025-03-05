@@ -32,10 +32,7 @@ public class UserNavBottom extends AppCompatActivity {
         HIDDEN_DESTINATIONS.add(R.id.onBoarding3Fragment);
         HIDDEN_DESTINATIONS.add(R.id.loginFragment);
         HIDDEN_DESTINATIONS.add(R.id.registerFragment);
-        HIDDEN_DESTINATIONS.add(R.id.addMenuFragment);
-        HIDDEN_DESTINATIONS.add(R.id.addStoreFragment);
-        HIDDEN_DESTINATIONS.add(R.id.menuManagementFragment);
-        HIDDEN_DESTINATIONS.add(R.id.settingsFragment);
+        HIDDEN_DESTINATIONS.add(R.id.foodDetailsFragment);
         HIDDEN_DESTINATIONS.add(R.id.successFragment);
     }
 

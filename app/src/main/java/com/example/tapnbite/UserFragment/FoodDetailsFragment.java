@@ -1,49 +1,36 @@
 package com.example.tapnbite.UserFragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import com.bumptech.glide.Glide;
 import com.example.tapnbite.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FoodDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FoodDetailsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String foodId, name, description, categoryId, imageUrl, canteenStaffId, availability;
+    private int price, prepTime;
+    private ImageButton ibRemove, ibAdd, ibBack;
+    private TextView tvQuantity;
+    private Button addtocart;
 
     public FoodDetailsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FoodDescriptionFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static FoodDetailsFragment newInstance(String param1, String param2) {
         FoodDetailsFragment fragment = new FoodDetailsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +39,15 @@ public class FoodDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            foodId = getArguments().getString("foodId");
+            name = getArguments().getString("name");
+            description = getArguments().getString("description");
+            price = getArguments().getInt("price");
+            prepTime = getArguments().getInt("prepTime");
+            categoryId = getArguments().getString("categoryId");
+            imageUrl = getArguments().getString("imageUrl");
+            canteenStaffId = getArguments().getString("canteenStaffId");
+            availability = getArguments().getString("availability");
         }
     }
 
@@ -61,6 +55,67 @@ public class FoodDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_food_details, container, false);
+
+        // Find the UI elements
+        ImageView ivFoodPicture = view.findViewById(R.id.ivFoodPicture);
+        TextView tvFoodName = view.findViewById(R.id.tvFoodName);
+        TextView tvFoodDescription = view.findViewById(R.id.tvFoodDescription);
+        TextView tvPrice = view.findViewById(R.id.tvPrice);
+        TextView tvPrepTime = view.findViewById(R.id.tvPrepTime);
+        tvQuantity = view.findViewById(R.id.tvQuantity);
+        ibRemove = view.findViewById(R.id.ibRemove);
+        ibAdd = view.findViewById(R.id.ibAdd);
+        ibBack = view.findViewById(R.id.ibBack);
+        addtocart = view.findViewById(R.id.btnAddtoCart);
+
+        // Update the UI elements with the retrieved data
+        Glide.with(this).load(imageUrl).into(ivFoodPicture);
+        tvFoodName.setText(name);
+        tvFoodDescription.setText(description);
+        tvPrice.setText(String.valueOf(price));
+        tvPrepTime.setText(String.valueOf(prepTime));
+
+        // Set up the click listeners
+        ibAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateQuantity(1);
+            }
+        });
+
+        ibRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateQuantity(-1);
+            }
+        });
+
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigateUp();
+            }
+        });
+
+        addtocart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Add the item to the cart
+                // You can use the quantity and other details to add the item to the cart
+                // For now, we will just navigate back to the previous screen
+                Toast.makeText(getContext(), "Item added to cart.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return view;
+    }
+
+    private void updateQuantity(int change) {
+        int currentQuantity = Integer.parseInt(tvQuantity.getText().toString());
+        int newQuantity = currentQuantity + change;
+        if (newQuantity >= 1) {
+            tvQuantity.setText(String.valueOf(newQuantity));
+        }
     }
 }

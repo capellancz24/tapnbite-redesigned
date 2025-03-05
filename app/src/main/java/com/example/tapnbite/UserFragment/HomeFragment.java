@@ -160,8 +160,8 @@ public class HomeFragment extends Fragment {
         requestQueue = Volley.newRequestQueue(getContext());
         fetchProducts();
 
-
-
+        // Load products into productList and notify the adapter
+        loadProducts();
         return view;
     }
 
@@ -185,7 +185,8 @@ public class HomeFragment extends Fragment {
                                 String canteenStaffId = product.getString("canteenstaff_id");
                                 String availability = product.getString("availability");
 
-                                productList.add(new Food(foodId, name, description, price, prepTime, categoryId, imageUrl, canteenStaffId, availability));
+
+                                productList.add(new Food(foodId, name, description, price, prepTime, imageUrl, categoryId, canteenStaffId, availability));
                             }
                             productsAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -201,5 +202,12 @@ public class HomeFragment extends Fragment {
                 });
 
         requestQueue.add(jsonArrayRequest);
+    }
+
+    private void loadProducts() {
+        // Implement the logic to load products into productList
+        // For example, you can fetch products from a server or a local database
+        // After loading products, notify the adapter
+        productsAdapter.notifyDataSetChanged();
     }
 }
