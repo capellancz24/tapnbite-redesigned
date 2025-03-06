@@ -59,6 +59,7 @@
         <action
             android:id="@+id/action_profileFragment_to_aboutUsFragment"
             app:destination="@id/aboutUsFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/allCategoriesFragment"

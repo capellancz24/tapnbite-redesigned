@@ -1,5 +1,6 @@
 package com.example.tapnbite.UserFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -9,8 +10,10 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.tapnbite.R;
+import com.example.tapnbite.dummy.MainWallet;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +32,7 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
     private View view;
     private CardView aboutUs, faqs, termsAndCondition, privacyPolicy, logout;
+    private Button btnTopUp; // Added Top-Up button
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -64,7 +68,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         aboutUs = view.findViewById(R.id.cvAboutUs);
@@ -72,13 +76,22 @@ public class ProfileFragment extends Fragment {
         privacyPolicy = view.findViewById(R.id.cvPrivacyPolicy);
         termsAndCondition = view.findViewById(R.id.cvTermsAndCondition);
         logout = view.findViewById(R.id.cvLogout);
+        btnTopUp = view.findViewById(R.id.btnTopUp); // Initialize Top-Up button
+
+        btnTopUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainWallet.class);
+                startActivity(intent);
+            }
+        });
 
         cvClicked();
 
         return view;
     }
 
-    private void cvClicked(){
+    private void cvClicked() {
         aboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,12 +123,7 @@ public class ProfileFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //navigate to login
-                //snackbar
             }
         });
-
-
-
     }
 }
