@@ -8,7 +8,7 @@ public class Food {
     private String canteen;
     private String store;
     private String prepTime;
-    private int price;
+    private double price;
     private String imageUrl;
 
     public Food(String foodId, String name, String description, String category, String canteen, String store, String prepTime, int price, String imageUrl) {
@@ -16,8 +16,8 @@ public class Food {
         this.name = name;
         this.description = description;
         this.category = category;
-        this.canteen = canteen;
-        this.store = store;
+        this.canteen = canteen; //
+        this.store = store; //violation?
         this.prepTime = prepTime;
         this.price = price;
         this.imageUrl = imageUrl;
@@ -51,11 +51,16 @@ public class Food {
         return prepTime;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
     public String getImageUrl() {
         return imageUrl;
     }
+
+    public String getFoodPrice(){
+        return String.valueOf(price);
+    }
+
 }

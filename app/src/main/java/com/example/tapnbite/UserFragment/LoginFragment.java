@@ -134,9 +134,7 @@ public class LoginFragment extends Fragment {
                                 if (userType.equals("customer")) {
                                     Navigation.findNavController(view).navigate(R.id.navigateToHomeFragment);
                                 } else if (userType.equals("canteen staff")) {
-                                    // Navigate to canteen staff fragment
-                                } else if (userType.equals("admin")) {
-                                    Navigation.findNavController(view).navigate(R.id.dashboardFragment);
+                                    Toast.makeText(getContext(), "Canteen Staff", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 Toast.makeText(getContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
@@ -229,4 +227,5 @@ public class LoginFragment extends Fragment {
         }
         return true;
     }
+
 }

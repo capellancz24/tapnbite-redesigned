@@ -3,9 +3,12 @@ package com.example.tapnbite.UserFragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -32,13 +35,14 @@ import java.util.regex.Pattern;
 
 public class RegisterFragment extends Fragment {
 
-    private static final String REGISTER_URL = "http://192.168.18.6/tapnbite/users/createUsers.php";
+    private static final String REGISTER_URL = "http://192.168.18.6/tapnbite/userCreate.php";
     private View view;
-    private TextInputLayout txtLayoutFullName, txtLayoutEmail, txtLayoutNUID, txtLayoutCanteen, txtLayoutStoreName, txtLayoutPassword, txtLayoutConfirmPassword;
-    private TextInputEditText inputFullName, inputEmail, inputNUID, inputCanteenNum, inputStoreName, inputPassword, inputConfirmPassword;
+    private TextInputLayout txtLayoutFirstName, txtLayoutLastName, txtLayoutEmail, txtLayoutNUID, txtLayoutCanteen, txtLayoutStoreName, txtLayoutPassword, txtLayoutConfirmPassword;
+    private TextInputEditText inputFirstName, inputLastName, inputEmail, inputNUID, inputStoreName, inputPassword, inputConfirmPassword;
     private Button login, signUp;
     private CheckBox cbAgreement;
     private MaterialButtonToggleGroup toggleGroup;
+    private AutoCompleteTextView canteenAutoComplete;
     private String dataUserType = "null";
 
     public RegisterFragment() {
@@ -56,18 +60,24 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_register, container, false);
 
-        txtLayoutFullName = view.findViewById(R.id.txtLayoutFullName);
+        txtLayoutFirstName = view.findViewById(R.id.txtLayoutFirstName);
+        txtLayoutLastName = view.findViewById(R.id.txtLayoutLastName);
         txtLayoutEmail = view.findViewById(R.id.txtLayoutEmail);
         txtLayoutNUID = view.findViewById(R.id.txtLayoutNUID);
-        txtLayoutCanteen = view.findViewById(R.id.txtLayoutCanteen);
+
+        txtLayoutCanteen = view.findViewById(R.id.txtLayoutCanteen); //autocomplete txt view
+
         txtLayoutStoreName = view.findViewById(R.id.txtLayoutStoreName);
         txtLayoutPassword = view.findViewById(R.id.txtLayoutPassword);
         txtLayoutConfirmPassword = view.findViewById(R.id.txtLayoutConfirmPassword);
 
-        inputFullName = view.findViewById(R.id.inputFullName);
+        inputFirstName = view.findViewById(R.id.inputFirstName);
+        inputLastName = view.findViewById(R.id.inputLastName);
         inputEmail = view.findViewById(R.id.inputEmail);
         inputNUID = view.findViewById(R.id.inputNUID);
-        inputCanteenNum = view.findViewById(R.id.inputCanteenNum);
+
+        canteenAutoComplete = view.findViewById(R.id.inputCanteenNum); //autocomplete txt view
+
         inputStoreName = view.findViewById(R.id.inputStoreName);
         inputPassword = view.findViewById(R.id.inputPassword);
         inputConfirmPassword = view.findViewById(R.id.inputConfirmPassword);
@@ -92,6 +102,10 @@ public class RegisterFragment extends Fragment {
             }
         });
 
+        String[] canteenLocations = {"Canteen 1", "Canteen 2"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, canteenLocations);
+        canteenAutoComplete.setAdapter(adapter);
+
         toggleGroup.setSingleSelection(true);
         toggleGroup.check(R.id.btnCustomer); // Set default selection
         toggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
@@ -103,8 +117,10 @@ public class RegisterFragment extends Fragment {
                     dataUserType = "customer";
 
                     txtLayoutNUID.setVisibility(View.VISIBLE);
-                    txtLayoutFullName.setVisibility(View.VISIBLE);
-                    txtLayoutCanteen.setVisibility(View.GONE);
+                    txtLayoutFirstName.setVisibility(View.VISIBLE);
+                    inputLastName.setVisibility(View.VISIBLE);
+
+                    txtLayoutCanteen.setVisibility(View.GONE); //here
                     txtLayoutStoreName.setVisibility(View.GONE);
                 } else if (checkedId == R.id.btnCanteenStaff) {
                     clearTextFields();
@@ -113,13 +129,30 @@ public class RegisterFragment extends Fragment {
                     dataUserType = "canteen staff";
 
                     txtLayoutNUID.setVisibility(View.GONE);
-                    txtLayoutFullName.setVisibility(View.GONE);
-                    txtLayoutCanteen.setVisibility(View.VISIBLE);
+
+                    txtLayoutFirstName.setVisibility(View.GONE);
+                    txtLayoutLastName.setVisibility(View.GONE);
+
+                    txtLayoutCanteen.setVisibility(View.VISIBLE); // here
                     txtLayoutStoreName.setVisibility(View.VISIBLE);
                 }
             }
         });
 
+        signupClick();
+
+        firstNameTextWatcher();
+        lastNameTextWatcher();
+        schoolIDTextWatcher();
+        emailTextWatcher();
+        passwordTextWatcher();
+        storeNameTextWatcher();
+        canteenNumTextWatcher();
+
+        return view;
+    }
+
+    private void signupClick(){
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,14 +164,15 @@ public class RegisterFragment extends Fragment {
                 // Validate fields based on user type
                 if (toggleGroup.getCheckedButtonId() == R.id.btnCustomer) {
                     dataUserType = "customer"; // Set user type to customer
-                    isValid &= validateFullName();
+                    isValid &= validateFirstName();
+                    isValid &= validateLastName();
                     isValid &= validateSchoolID();
                     isValid &= validateSchoolEmail();
                     isValid &= validatePassword();
                     // Store name and canteen number are not required for customers
                 } else if (toggleGroup.getCheckedButtonId() == R.id.btnCanteenStaff) {
                     dataUserType = "canteen staff"; // Set user type to canteen staff
-                    isValid &= validateEmail(); // Email is required for staff
+                    isValid &= validateStaffEmail(); // Email is required for staff
                     isValid &= validateStoreName(); // Store name is required for staff
                     isValid &= validateCanteenNum(); // Canteen number is required for staff
                     isValid &= validatePassword(); // Password is required
@@ -152,33 +186,26 @@ public class RegisterFragment extends Fragment {
 
                 // If all validations pass, proceed with account creation
                 if (isValid) {
-                    String dataFullName = inputFullName.getText().toString().trim();
+                    String dataFirstName = inputFirstName.getText().toString().trim();
+                    String dataLastName = inputLastName.getText().toString().trim();
                     String dataEmail = inputEmail.getText().toString().trim();
                     String dataNUID = inputNUID.getText().toString().trim();
                     String dataPassword = inputPassword.getText().toString().trim();
-                    String dataCanteenNum = inputCanteenNum.getText().toString().trim();
+                    String dataCanteenNum = canteenAutoComplete.getText().toString();
                     String storeName = inputStoreName.getText().toString().trim();
 
-                    createUser(dataFullName, dataNUID, dataEmail, dataPassword, dataUserType, dataEmail, storeName, dataCanteenNum);
+                    createUser(dataFirstName, dataLastName, dataNUID, dataEmail, dataPassword, dataUserType, dataEmail, storeName, dataCanteenNum);
                 } else {
                     Toast.makeText(getActivity(), "Please fill in all required fields.", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
-
-        fullNameTextWatcher();
-        schoolIDTextWatcher();
-        emailTextWatcher();
-        passwordTextWatcher();
-        storeNameTextWatcher();
-        canteenNumTextWatcher();
-
-        return view;
     }
 
-    private void createUser(final String fullName, final String schoolId, final String schoolEmail,
-                            final String password, final String userType, final String staffEmail,
-                            final String storeName, final String canteenLocation) {
+    private void createUser (final String firstName, final String lastName, final String schoolId, final String schoolEmail,
+                             final String password, final String userType, final String staffEmail,
+                             final String storeName, final String canteenLocation) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -196,16 +223,18 @@ public class RegisterFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("password", password);
+                params.put("pass", password);
                 params.put("user_type", userType);
+
                 if ("customer".equalsIgnoreCase(userType)) {
-                    params.put("full_name", fullName);
+                    params.put("first_name", firstName);
+                    params.put("last_name", lastName);
                     params.put("school_id", schoolId);
                     params.put("school_email", schoolEmail);
                 } else if ("canteen staff".equalsIgnoreCase(userType)) {
-                    params.put("email", staffEmail);
+                    params.put("staff_email", staffEmail);
                     params.put("store_name", storeName);
-                    params.put("canteen_location", canteenLocation);
+                    params.put("canteen_location", canteenLocation); // Ensure this matches ENUM values
                 }
                 return params;
             }
@@ -213,7 +242,6 @@ public class RegisterFragment extends Fragment {
 
         VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
     }
-
 
     private void showTermsAndConditions() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
@@ -280,8 +308,8 @@ public class RegisterFragment extends Fragment {
         bottomSheetDialog.show();
     }
 
-    private void fullNameTextWatcher() {
-        inputFullName.addTextChangedListener(new TextWatcher() {
+    private void firstNameTextWatcher() {
+        inputFirstName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -294,8 +322,28 @@ public class RegisterFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                txtLayoutFullName.setError(null);
-                txtLayoutFullName.setErrorEnabled(false);
+                txtLayoutFirstName.setError(null);
+                txtLayoutFirstName.setErrorEnabled(false);
+            }
+        });
+    }
+
+    private void lastNameTextWatcher() {
+        inputLastName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                txtLayoutLastName.setError(null);
+                txtLayoutLastName.setErrorEnabled(false);
             }
         });
     }
@@ -341,7 +389,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void canteenNumTextWatcher() {
-        inputCanteenNum.addTextChangedListener(new TextWatcher() {
+        canteenAutoComplete.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -443,6 +491,27 @@ public class RegisterFragment extends Fragment {
         });
     }
 
+    private Boolean validateStaffEmail(){
+        String val = inputEmail.getText().toString().trim();
+
+        String emailPattern = "^[a-zA-Z]+[a-zA-Z]*[0-9]*@(gmail\\.com|yahoo\\.com)$";
+
+        if (val.isEmpty()) {
+            txtLayoutEmail.setError("This field is required.");
+            return false;
+        }
+
+        Pattern pattern = Pattern.compile(emailPattern);
+        Matcher matcher = pattern.matcher(val);
+
+        if (!matcher.matches()) {
+            txtLayoutEmail.setError("Invalid Email Format.");
+            return false;
+        }
+
+        return true;
+    }
+
     private Boolean validateStoreName() {
         String val = inputStoreName.getText().toString().trim();
 
@@ -464,18 +533,11 @@ public class RegisterFragment extends Fragment {
         return true;
     }
 
-    private Boolean validateFullName() {
-        String val = inputFullName.getText().toString().trim();
+    private Boolean validateFirstName() {
+        String val = inputFirstName.getText().toString().trim();
 
         if (val.isEmpty()) {
-            txtLayoutFullName.setError("This field is required.");
-            return false;
-        }
-
-        String[] nameParts = val.split("\\s+"); // Split by one or more whitespace characters
-
-        if (nameParts.length < 2) {
-            txtLayoutFullName.setError("Please enter both first and last name.");
+            txtLayoutFirstName.setError("This field is required.");
             return false;
         }
 
@@ -485,13 +547,28 @@ public class RegisterFragment extends Fragment {
         Matcher matcher = pattern.matcher(val);
 
         if (!matcher.matches()) {
-            txtLayoutFullName.setError("Invalid name format.");
+            txtLayoutFirstName.setError("Invalid name format.");
             return false;
         }
 
-        // Check for minimum and maximum length (optional)
-        if (val.length() < 2 || val.length() > 25) {
-            txtLayoutFullName.setError("Name must be between 10 and 25 characters long.");
+        return true;
+    }
+
+    private Boolean validateLastName() {
+        String val = inputLastName.getText().toString().trim();
+
+        if (val.isEmpty()) {
+            txtLayoutLastName.setError("This field is required.");
+            return false;
+        }
+
+        // Check for valid characters (letters, spaces, hyphens, apostrophes)
+        String namePattern = "^[a-zA-Z\\s'-]+$"; // Allows letters, spaces, hyphens, and apostrophes
+        Pattern pattern = Pattern.compile(namePattern);
+        Matcher matcher = pattern.matcher(val);
+
+        if (!matcher.matches()) {
+            txtLayoutLastName.setError("Invalid name format.");
             return false;
         }
 
@@ -544,41 +621,12 @@ public class RegisterFragment extends Fragment {
         return true;
     }
 
-    private Boolean validateEmail() {
-        String val = inputEmail.getText().toString().trim();
-        if (val.isEmpty()) {
-            txtLayoutEmail.setError("This field is required.");
-            return false;
-        }
-        return true;
-    }
-
     private Boolean validateCanteenNum() {
-        String val = inputCanteenNum.getText().toString().trim();
+        String val = canteenAutoComplete.getText().toString().trim();
         if (val.isEmpty()) {
             txtLayoutCanteen.setError("This field is required.");
             return false;
         }
-
-        String regex = "^[1-9]\\d*$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(val);
-
-        if (!matcher.matches()) {
-            txtLayoutCanteen.setError("Invalid canteen number. Canteen 1 or 2 only.");
-            return false;
-        }
-
-        if (val.length() != 1) {
-            txtLayoutCanteen.setError("Canteen number must be a single digit.");
-            return false;
-        }
-
-        if (val.charAt(0) == '0') {
-            txtLayoutCanteen.setError("Canteen number cannot start with 0.");
-            return false;
-        }
-
 
         return true;
     }
@@ -629,18 +677,20 @@ public class RegisterFragment extends Fragment {
     }
 
     public void clearTextFields() {
-        inputFullName.setText("");
+        inputFirstName.setText("");
+        inputLastName.setText("");
         inputEmail.setText("");
         inputNUID.setText("");
         inputPassword.setText("");
         inputConfirmPassword.setText("");
-        inputCanteenNum.setText("");
+        canteenAutoComplete.setText("");
         inputStoreName.setText("");
         cbAgreement.setChecked(false);
     }
 
     public void clearErrors() {
-        txtLayoutFullName.setError(null);
+        txtLayoutFirstName.setError(null);
+        txtLayoutLastName.setError(null);
         txtLayoutEmail.setError(null);
         txtLayoutNUID.setError(null);
         txtLayoutPassword.setError(null);
@@ -648,7 +698,8 @@ public class RegisterFragment extends Fragment {
         txtLayoutCanteen.setError(null);
         txtLayoutStoreName.setError(null);
 
-        txtLayoutFullName.setErrorEnabled(false);
+        txtLayoutFirstName.setErrorEnabled(false);
+        txtLayoutLastName.setErrorEnabled(false);
         txtLayoutEmail.setErrorEnabled(false);
         txtLayoutNUID.setErrorEnabled(false);
         txtLayoutPassword.setErrorEnabled(false);

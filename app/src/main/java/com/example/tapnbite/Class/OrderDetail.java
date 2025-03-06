@@ -5,7 +5,7 @@ import java.util.List;
 public class OrderDetail {
     private String orderId; // Unique identifier for the order
     private List<Food> foodItems; // List of food items in the order
-    private String status; // e.g., "waiting for review", "on process", "completed", "canceled"
+    private String status; // e.g., "pending review", "on process", "completed", "canceled"
     private String customerId; // Reference to the customer who placed the order
     private String orderDate; // Date and time of the order
 

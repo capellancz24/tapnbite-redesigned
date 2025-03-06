@@ -411,9 +411,10 @@
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvPopularFood"
+                        android:id="@+id/rvFoodProducts"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/viewholder_food"
                         tools:itemCount="10"/>
 
                 </LinearLayout>

@@ -3,10 +3,13 @@ package com.example.tapnbite.UserFragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.tapnbite.R;
 
@@ -61,6 +64,25 @@ public class SuccessFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_success, container, false);
+        View view = inflater.inflate(R.layout.fragment_success, container, false);
+
+        Button btnBack = view.findViewById(R.id.button);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_successFragment_to_homeFragment);
+            }
+        });
+
+        TextView trackmyorder = view.findViewById(R.id.tvTrackMyOrder);
+        trackmyorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_successFragment_to_orderFragment);
+            }
+        });
+
+
+        return view;
     }
 }

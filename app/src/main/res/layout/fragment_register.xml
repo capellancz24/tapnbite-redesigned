@@ -84,29 +84,62 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtLayoutFullName"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="@color/md_theme_primary"
-                    app:hintAnimationEnabled="true"
-                    app:hintEnabled="true"
-                    app:hintTextColor="#025CF8"
-                    app:startIconDrawable="@drawable/ic_person_fill">
+                    android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputFullName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/inter_medium"
-                        android:hint="Full Name"
-                        android:inputType="textPersonName"
-                        android:textAppearance="@font/inter_medium"
-                        android:textSize="15sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtLayoutFirstName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="5dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxStrokeColor="@color/md_theme_primary"
+                        app:hintAnimationEnabled="true"
+                        app:hintEnabled="true"
+                        app:hintTextColor="#025CF8">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputFirstName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:hint="First Name"
+                            android:inputType="textPersonName"
+                            android:textAppearance="@font/inter_medium"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtLayoutLastName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginStart="5dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxStrokeColor="@color/md_theme_primary"
+                        app:hintAnimationEnabled="true"
+                        app:hintEnabled="true"
+                        app:hintTextColor="#025CF8">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputLastName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:hint="Last Name"
+                            android:inputType="textPersonName"
+                            android:textAppearance="@font/inter_medium"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txtLayoutEmail"
@@ -158,9 +191,9 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txtLayoutCanteen"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:visibility="gone"
                     app:boxBackgroundColor="@color/white"
@@ -170,13 +203,13 @@
                     app:hintTextColor="#025CF8"
                     app:startIconDrawable="@drawable/ic_store_fill">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/inputCanteenNum"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_medium"
                         android:hint="Canteen Location"
-                        android:inputType="number"
+                        android:inputType="text"
                         android:textAppearance="@font/inter_medium"
                         android:textSize="15sp" />
                 </com.google.android.material.textfield.TextInputLayout>
